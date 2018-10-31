@@ -15,6 +15,16 @@
         console.log('sent: ping-client after connect')
         socket.emit('ping-client');
     })
+
+    socket.on('error', function (error) {
+        if (error + ''.startsWith('Error: xhr poll')) {
+            // force to reconnect
+            console.log('force to reconnect')
+            socket.disconnect()
+            socket.connect()
+        }
+        console.log('error', error)
+    })
 </script>
 
 <body>
