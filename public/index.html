@@ -1,0 +1,24 @@
+<html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://localhost:3000');
+    socket.on('ping-server', function (data) {
+        console.log('receive: ping-server');
+
+        setTimeout(() => {
+            console.log('sent: ping-client after ping-server')
+            socket.emit('ping-client');
+        }, 1000)
+    });
+
+    socket.on('connect', function () {
+        console.log('sent: ping-client after connect')
+        socket.emit('ping-client');
+    })
+</script>
+
+<body>
+    Open debug panel
+</body>
+
+</html>
